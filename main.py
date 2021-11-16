@@ -67,7 +67,7 @@ class App:
         self.durations = {self.ui.episodes_10m: 'S', self.ui.episodes_29m: 'D', self.ui.episodes_30m: 'F'}
         self.ratings = {self.ui.raiting_g: 'g', self.ui.raiting_pg: 'pg', self.ui.raiting_pg13: 'pg_13',
                         self.ui.raiting_r17: 'r', self.ui.raiting_rp: 'r_plus', self.ui.raiting_rx: 'rx'}
-        self.icon_path = os.path.join(Path(__file__).parent, "icon.png")
+        self.icon_path = os.path.join(Path(__file__).parent, 'images/icon.png')
         self.window.setWindowTitle('Shikimori Main')
         self.window.setWindowIcon(QIcon(self.icon_path))
         self.Form_login_dialog.setWindowIcon(QIcon(self.icon_path))
