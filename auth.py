@@ -1,7 +1,6 @@
 import oauthlib.oauth2.rfc6749.errors
 from requests_oauthlib import OAuth2Session
-import os
-import json
+from static import token_loader
 
 URL = 'https://shikimori.one'
 URL_TOKEN = 'https://shikimori.one/oauth/token'
@@ -14,7 +13,7 @@ class Auth:
         self.redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
         self.extra = {'client_id': self.client_id, 'client_secret': self.client_secret}
         self.token_saver = token_saver
-        self.tokens = self.token_loader()
+        self.tokens = token_loader()
         self.headers = {'User-Agent': 'Shikimori', 'Authorization': f'Bearer {self.tokens.get("access_token")}'}
         self.client = self.get_client(scope, self.redirect_uri, token)
 
@@ -38,13 +37,13 @@ class Auth:
         return self.token
 
     def refresh_token(self):
-        if not self.token_loader():
+        if not token_loader():
             return None
         self.client.headers.clear()
         self.client.headers.update({'User-Agent': 'Shikimori'})
-        self.client.refresh_token(URL_TOKEN, refresh_token=self.token_loader().get('refresh_token'))
+        self.client.refresh_token(URL_TOKEN, refresh_token=token_loader().get('refresh_token'))
         self.token_saver(self.token)
-        self.client.headers.update({'Authorization': f'Bearer {self.token_loader().get("access_token")}'})
+        self.client.headers.update({'Authorization': f'Bearer {token_loader().get("access_token")}'})
         return self.token
 
     def get(self, url, params=None):
@@ -53,11 +52,3 @@ class Auth:
     @property
     def token(self):
         return self.client.token
-
-    @staticmethod
-    def token_loader():
-        print('loaded')
-        if os.path.exists('Shikimori/user/token.json'):
-            with open('Shikimori/user/token.json') as f:
-                return json.load(f)
-        return {}

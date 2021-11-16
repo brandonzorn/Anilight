@@ -1,7 +1,5 @@
 import webbrowser
-import json
 import requests
-import os
 import sys
 import shikimoriUI
 import ui_shikimoriUIlogin
@@ -13,6 +11,7 @@ from threading import Thread
 from pathlib import Path
 from auth import Auth
 from shikimori import Shikimori
+from static import *
 
 URL = 'https://shikimori.one'
 URL_API = 'https://shikimori.one/api'
@@ -25,11 +24,11 @@ HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 class App:
     def __init__(self):
-        self.session = Auth(token_saver=self.token_saver)
+        self.session = Auth(token_saver=token_saver)
         self.Shikimori = Shikimori()
         self.cur_window = 'shikimori_main'
         self.token = None
-        self.tokens = self.token_loader()
+        self.tokens = token_loader()
         self.pages = None
         self.link = None
         self.is_login = False
@@ -107,8 +106,7 @@ class App:
         self.whoami.update(self.session.get('https://shikimori.one/api/users/whoami').json())
         if self.whoami.get('state') == 'unauthorized':
             self.session.refresh_token()
-            print('refreshed')
-            self.tokens = self.token_loader()
+            self.tokens = token_loader()
             self.whoami = self.session.get('https://shikimori.one/api/users/whoami').json()
             if self.whoami.get('state') == 'unauthorized':
                 self.is_login = False
@@ -268,20 +266,6 @@ class App:
         [i.setChecked(False) for i in self.durations]
         [i.setChecked(False) for i in self.ratings]
         self.get_content()
-
-    @staticmethod
-    def token_saver(token):
-        print('saved')
-        with open('Shikimori/user/token.json', 'w') as f:
-            f.write(json.dumps(token))
-
-    @staticmethod
-    def token_loader():
-        print('loaded')
-        if os.path.exists('Shikimori/user/token.json'):
-            with open('Shikimori/user/token.json') as f:
-                return json.load(f)
-        return {}
 
 
 if __name__ == '__main__':
