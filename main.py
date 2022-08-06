@@ -1,15 +1,13 @@
 import webbrowser
 import requests
 import sys
-import shikimoriUI
-import ui_shikimoriUIlogin
-import ui_shikimoriUIlogdialog
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 from functools import partial
 from threading import Thread
 from pathlib import Path
 from auth import Auth
+from forms import shikimoriUI, shikimoriUIlogin, shikimoriUIlogdialog
 from shikimori import Shikimori
 from static import *
 
@@ -38,14 +36,14 @@ class App:
         self.whoami = {}
         self.params = {'limit': 50, 'page': self.current_page, 'order': 'status'}
         self.params_login = {}
-        self.app = QApplication(sys.argv)
+
         self.Form = QWidget()
         self.Form_login = QWidget()
         self.Form_login_dialog = QWidget()
         self.window = QStackedWidget()
         self.ui = shikimoriUI.Ui_Dialog()
-        self.ui_login = ui_shikimoriUIlogin.Ui_Dialog()
-        self.ui_login_dialog = ui_shikimoriUIlogdialog.Ui_Dialog()
+        self.ui_login = shikimoriUIlogin.Ui_Dialog()
+        self.ui_login_dialog = shikimoriUIlogdialog.Ui_Dialog()
         self.ui.setupUi(self.Form)
         self.ui_login.setupUi(self.Form_login)
         self.ui_login_dialog.setupUi(self.Form_login_dialog)
@@ -90,7 +88,6 @@ class App:
         self.ui_login_dialog.btn_login.clicked.connect(self.clicked_account_login)
         self.start()
         self.get_content()
-        sys.exit(self.app.exec_())
 
     @staticmethod
     def get_html(url, params=None):
@@ -266,4 +263,6 @@ class App:
 
 
 if __name__ == '__main__':
-    App()
+    app = QApplication(sys.argv)
+    a = App()
+    sys.exit(app.exec())
