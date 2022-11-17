@@ -14,7 +14,6 @@ class FormHistory(BaseWidget):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.ui.items_list.installEventFilter(self)
         self.db: Database = Database()
         self.ui.delete_btn.clicked.connect(self.delete_note)
         self.notes: list[HistoryNote] = []

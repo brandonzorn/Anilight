@@ -31,7 +31,6 @@ class FormInfo(QWidget):
         self.ui.shikimori_btn.clicked.connect(self.open_rate)
         self.ui.add_btn.clicked.connect(self.add_to_favorites)
         self.ui.lib_list_box.currentIndexChanged.connect(self.change_lib_list)
-        self.ui.items_list.installEventFilter(self)
         self.db: Database = Database()
         self.catalog = None
         self.manga = None

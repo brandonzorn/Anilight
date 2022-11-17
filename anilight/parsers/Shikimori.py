@@ -1,6 +1,6 @@
 from requests_oauthlib import OAuth2Session
 
-from anilight.items import Manga, Character, Order, Genre, RequestForm, UserRate, User, Kind, Chapter
+from anilight.items import Manga, Character, Order, Genre, RequestForm, UserRate, User, Chapter
 from anilight.parsers.Parser import Parser, LibParser
 from anilight.utils.utils import get_html, TokenManager, singleton
 from const.shikimori_items import ORDERS
@@ -44,7 +44,8 @@ class ShikimoriBase(Parser):
             for i in html.json():
                 if "smotret" in i.get("url") or i.get('language') != 'ru':
                     continue
-                chapters.append(Chapter(i.get("id"), i.get('episode'), "", i.get('url'), i.get('kind'), i.get("author")))
+                chapters.append(Chapter(i.get("id"), i.get('episode'), "", i.get('url'), i.get('kind'),
+                                        i.get("author")))
         chapters.sort(key=lambda x: x.ep, reverse=True)
         return chapters
 
