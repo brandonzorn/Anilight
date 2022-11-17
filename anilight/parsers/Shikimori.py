@@ -1,11 +1,11 @@
 from requests_oauthlib import OAuth2Session
 
-from const.shikimori_items import ORDERS, KINDS
-from const.urls import URL_SHIKIMORI_API, URL_SHIKIMORI_TOKEN, URL_SHIKIMORI, SHIKIMORI_HEADERS
-from items import Anime, RequestForm, Genre, Kind, User, UserRate, Order, Character, Episode
-from keys import SHIKIMORI_CLIENT_SECRET, SHIKIMORI_CLIENT_ID
+from anilight.items import Manga, Character, Order, Genre, RequestForm, UserRate, User, Kind, Chapter
 from anilight.parsers.Parser import Parser, LibParser
-from anilight.utils.utils import get_html, singleton, TokenManager
+from anilight.utils.utils import get_html, TokenManager, singleton
+from const.shikimori_items import ORDERS
+from const.urls import URL_SHIKIMORI_API, URL_SHIKIMORI_TOKEN, URL_SHIKIMORI, SHIKIMORI_HEADERS, DEFAULT_HEADERS
+from keys import SHIKIMORI_CLIENT_SECRET, SHIKIMORI_CLIENT_ID
 
 
 class ShikimoriBase(Parser):
@@ -17,11 +17,11 @@ class ShikimoriBase(Parser):
         self.catalog_id = 0
         self.is_primary = True
 
-    def setup_manga(self, data: dict) -> Anime:
-        return Anime(data.get('id'), self.catalog_id, data.get('name'), data.get('russian'))
+    def setup_manga(self, data: dict) -> Manga:
+        return Manga(data.get('id'), self.catalog_id, data.get('name'), data.get('russian'))
 
-    def get_manga(self, manga: Anime) -> Anime:
-        url = f'{self.url_api}/mangas/{manga.id}'
+    def get_manga(self, manga: Manga) -> Manga:
+        url = f'{self.url_api}/animes/{manga.id}'
         html = get_html(url, self.headers)
         if html and html.status_code == 200 and html.json():
             data = html.json()
@@ -35,6 +35,19 @@ class ShikimoriBase(Parser):
                 manga.chapters = int(data.get('chapters'))
         return manga
 
+    def get_chapters(self, manga: Manga):
+        url = f'https://smarthard.net/api/shikivideos/{manga.id}'
+        params = {"limit": 5000}
+        html = get_html(url, DEFAULT_HEADERS, params)
+        chapters = []
+        if html and html.status_code == 200 and html.json():
+            for i in html.json():
+                if "smotret" in i.get("url") or i.get('language') != 'ru':
+                    continue
+                chapters.append(Chapter(i.get("id"), i.get('episode'), "", i.get('url'), i.get('kind'), i.get("author")))
+        chapters.sort(key=lambda x: x.ep, reverse=True)
+        return chapters
+
     def get_character(self, character: Character) -> Character:
         url = f'{self.url_api}/characters/{character.id}'
         html = get_html(url, self.headers)
@@ -43,8 +56,8 @@ class ShikimoriBase(Parser):
             character.description = data.get('description')
         return character
 
-    def get_preview(self, manga: Anime):
-        return get_html(f'https://shikimori.one/system/mangas/preview/{manga.id}.jpg')
+    def get_preview(self, manga: Manga):
+        return get_html(f'https://shikimori.one/system/animes/preview/{manga.id}.jpg')
 
     def get_character_preview(self, character: Character):
         return get_html(f'https://shikimori.one/system/characters/preview/{character.id}.jpg')
@@ -59,7 +72,7 @@ class ShikimoriBase(Parser):
     def get_orders(self) -> list[Order]:
         return [Order('', i['name'], i['russian']) for i in ORDERS]
 
-    def get_relations(self, manga: Anime) -> list[Anime]:
+    def get_relations(self, manga: Manga) -> list[Manga]:
         mangas = []
         url = f'{self.url_api}/mangas/{manga.id}/related'
         html = get_html(url, headers=self.headers)
@@ -70,7 +83,7 @@ class ShikimoriBase(Parser):
                     mangas.append(self.setup_manga(i))
         return mangas
 
-    def get_characters(self, manga: Anime) -> list[Character]:
+    def get_characters(self, manga: Manga) -> list[Character]:
         characters = []
         url = f'{self.url_api}/mangas/{manga.id}/roles'
         html = get_html(url, headers=self.headers)
@@ -92,46 +105,17 @@ class ShikimoriAnime(ShikimoriBase):
 
     def __init__(self):
         super().__init__()
-        self.catalog_id = 0
-
-    def get_manga(self, manga: Anime) -> Anime:
-        url = f'{self.url_api}/animes/{manga.id}'
-        html = get_html(url, self.headers)
-        if html and html.status_code == 200 and html.json():
-            data = html.json()
-            manga.description = data.get('description')
-            manga.kind = "anime"
-            manga.score = float(data.get('score'))
-            manga.status = data.get('status')
-        return manga
 
     def search_manga(self, params: RequestForm):
         url = f'{self.url_api}/animes'
-        params = {'limit': params.limit, 'search': params.search, 'order': params.order.name, 'page': params.page}
+        params = {'limit': params.limit, 'search': params.search, 'genre': ','.join([i.id for i in params.genres]),
+                  'order': params.order.name, 'kind': ','.join([i.name for i in params.kinds]), 'page': params.page}
         html = get_html(url, self.headers, params)
         mangas = []
         if html and html.status_code == 200 and html.json():
             for i in html.json():
                 mangas.append(self.setup_manga(i))
         return mangas
-
-    def get_chapters(self, manga: Anime):
-        url = f'https://smarthard.net/api/shikivideos/{manga.id}/length'
-        html = get_html(url, self.headers)
-        chapters = []
-        if html and html.status_code == 200 and html.json():
-            for i in range(int(html.json().get('length')) + 1, 0, -1):
-                chapters.append(Episode(f'{i}', i, '', ''))
-        return chapters
-
-    def get_preview(self, manga: Anime):
-        return get_html(f'https://shikimori.one/system/animes/preview/{manga.id}.jpg')
-
-    def get_genres(self):
-        return []
-
-    def get_kinds(self):
-        return []
 
 
 class ShikimoriLib(ShikimoriBase, LibParser):
@@ -160,12 +144,12 @@ class ShikimoriLib(ShikimoriBase, LibParser):
             return User(data.get('id'), data.get('nickname'), data.get('avatar'))
         return User(None, 'Войти', None)
 
-    def create_user_rate(self, manga: Anime):
+    def create_user_rate(self, manga: Manga):
         url = f'{self.url_api}/v2/user_rates'
         data = {"user_rate": {'target_type': 'Manga', 'user_id': self.get_user().id, 'target_id': manga.id}}
         self.session.request('POST', url, json=data)
 
-    def check_user_rate(self, manga: Anime):
+    def check_user_rate(self, manga: Manga):
         url = f'{self.url_api}/v2/user_rates'
         params = {'target_type': 'Manga', 'user_id': self.get_user().id, 'target_id': manga.id}
         html = self.session.request('GET', url, params)
@@ -179,7 +163,7 @@ class ShikimoriLib(ShikimoriBase, LibParser):
         url = f'{self.url_api}/v2/user_rates/{user_rate.id}'
         self.session.request('DELETE', url)
 
-    def get_user_rate(self, manga: Anime):
+    def get_user_rate(self, manga: Manga):
         url = f'{self.url_api}/v2/user_rates'
         params = {'target_type': 'Manga', 'user_id': self.get_user().id, 'target_id': manga.id}
         html = self.session.request('GET', url, params)
@@ -192,7 +176,7 @@ class ShikimoriLib(ShikimoriBase, LibParser):
         url = f'{self.url_api}/v2/user_rates/{user_rate.id}'
         data = {"user_rate": {"chapters": f"{user_rate.chapters}", "score": f"{user_rate.score}",
                               "status": f"{user_rate.status}"}}
-        self.session.request('PATCH', url, data).json()
+        self.session.request('PATCH', url, json=data)
 
 
 @singleton

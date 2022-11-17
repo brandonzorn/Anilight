@@ -1,2 +1,2 @@
-APP_NAME = "Nlight"
-APP_VERSION = "dev-1.8"
+APP_NAME = "Anilight"
+APP_VERSION = "dev-0.01"

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'facial.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.2
+## Created by: Qt User Interface Compiler version 6.4.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -120,25 +120,6 @@ class Ui_Form(object):
 
         self.horizontalLayout_5.addLayout(self.search)
 
-        self.catalogs_frame = QFrame(Form)
-        self.catalogs_frame.setObjectName(u"catalogs_frame")
-        self.catalogs_frame.setFrameShape(QFrame.StyledPanel)
-        self.catalogs_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_3 = QVBoxLayout(self.catalogs_frame)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.catalogs_list = QListWidget(self.catalogs_frame)
-        self.catalogs_list.setObjectName(u"catalogs_list")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.catalogs_list.sizePolicy().hasHeightForWidth())
-        self.catalogs_list.setSizePolicy(sizePolicy)
-
-        self.verticalLayout_3.addWidget(self.catalogs_list)
-
-
-        self.horizontalLayout_5.addWidget(self.catalogs_frame)
-
         self.filters = QVBoxLayout()
         self.filters.setObjectName(u"filters")
         self.orders_frame = QFrame(Form)
@@ -200,21 +181,6 @@ class Ui_Form(object):
 
         self.filters.addWidget(self.genres_frame)
 
-        self.filter_catalog_frame = QFrame(Form)
-        self.filter_catalog_frame.setObjectName(u"filter_catalog_frame")
-        self.filter_catalog_frame.setFrameShape(QFrame.StyledPanel)
-        self.filter_catalog_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_7 = QVBoxLayout(self.filter_catalog_frame)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.catalogs_btn = QPushButton(self.filter_catalog_frame)
-        self.catalogs_btn.setObjectName(u"catalogs_btn")
-        self.catalogs_btn.setCursor(QCursor(Qt.PointingHandCursor))
-
-        self.verticalLayout_7.addWidget(self.catalogs_btn)
-
-
-        self.filters.addWidget(self.filter_catalog_frame)
-
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.filters.addItem(self.verticalSpacer)
@@ -258,7 +224,6 @@ class Ui_Form(object):
         self.label.setText(QCoreApplication.translate("Form", u"\u0421\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0430", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"\u0422\u0438\u043f", None))
         self.genres_btn.setText(QCoreApplication.translate("Form", u"\u0421\u043f\u0438\u0441\u043e\u043a \u0436\u0430\u043d\u0440\u043e\u0432", None))
-        self.catalogs_btn.setText(QCoreApplication.translate("Form", u"\u041a\u0430\u0442\u0430\u043b\u043e\u0433\u0438", None))
         self.reset_btn.setText(QCoreApplication.translate("Form", u"\u0421\u0431\u0440\u043e\u0441\u0438\u0442\u044c", None))
         self.apply_btn.setText(QCoreApplication.translate("Form", u"\u041f\u0440\u0438\u043c\u0435\u043d\u0438\u0442\u044c", None))
     # retranslateUi
