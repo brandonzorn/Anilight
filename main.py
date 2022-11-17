@@ -4,8 +4,8 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import *
 
-from anilight.utils import init_app_paths
-from anilight.windows.Parent import ParentWindow
+from anilightwatcher.utils import init_app_paths
+from anilightwatcher.windows.Parent import ParentWindow
 from const.app import APP_NAME, APP_VERSION
 from const.icons import app_icon_path
 

@@ -2,8 +2,8 @@ import os
 import sqlite3
 from threading import Lock
 
-from anilight.items import Chapter, Manga, HistoryNote
-from anilight.utils.utils import with_lock_thread, singleton
+from anilightwatcher.items import Chapter, Manga, HistoryNote
+from anilightwatcher.utils.utils import with_lock_thread, singleton
 
 from const.app import APP_NAME
 from const.lists import LibList, lib_lists_en

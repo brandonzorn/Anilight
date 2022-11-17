@@ -1,4 +1,4 @@
-from anilight.items.BaseItem import BaseItem
+from anilightwatcher.items.BaseItem import BaseItem
 
 
 class Genre(BaseItem):

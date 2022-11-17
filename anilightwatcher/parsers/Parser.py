@@ -1,4 +1,4 @@
-from anilight.items import Manga, Chapter, RequestForm, Genre, Kind, Order, Character, User, UserRate
+from anilightwatcher.items import Manga, Chapter, RequestForm, Genre, Kind, Order, Character, User, UserRate
 
 
 class Parser:

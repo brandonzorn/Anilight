@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QDialog
-from anilight.items import Manga
-from anilight.utils.catalog_manager import get_catalog, get_lib_catalog
+from anilightwatcher.items import Manga
+from anilightwatcher.utils.catalog_manager import get_catalog, get_lib_catalog
 
 from const.lists import lib_lists_en, lib_lists_ru
 from data.ui.rate import Ui_Dialog

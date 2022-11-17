@@ -1,6 +1,6 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QDialog, QCheckBox
-from anilight.utils.catalog_manager import get_catalog
+from anilightwatcher.utils.catalog_manager import get_catalog
 
 from const.icons import app_icon_path
 from data.ui.genres import Ui_Dialog

@@ -1,8 +1,8 @@
 from requests_oauthlib import OAuth2Session
 
-from anilight.items import Manga, Character, Order, Genre, RequestForm, UserRate, User, Chapter
-from anilight.parsers.Parser import Parser, LibParser
-from anilight.utils.utils import get_html, TokenManager, singleton
+from anilightwatcher.items import Manga, Character, Order, Genre, RequestForm, UserRate, User, Chapter
+from anilightwatcher.parsers.Parser import Parser, LibParser
+from anilightwatcher.utils.utils import get_html, TokenManager, singleton
 from const.shikimori_items import ORDERS
 from const.urls import URL_SHIKIMORI_API, URL_SHIKIMORI_TOKEN, URL_SHIKIMORI, SHIKIMORI_HEADERS, DEFAULT_HEADERS
 from keys import SHIKIMORI_CLIENT_SECRET, SHIKIMORI_CLIENT_ID

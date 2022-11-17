@@ -4,10 +4,10 @@ from threading import Thread, Lock
 from PySide6.QtCore import Qt, QSize, QEvent
 from PySide6.QtWidgets import QWidget, QListWidgetItem
 
-from anilight.contexts import ReadMarkMenu
-from anilight.dialogs import FormRate, FormCharacter
-from anilight.items import Manga, Character, Chapter, HistoryNote
-from anilight.utils import Database, get_manga_preview, get_status, lock_ui, with_lock_thread, \
+from anilightwatcher.contexts import ReadMarkMenu
+from anilightwatcher.dialogs import FormRate, FormCharacter
+from anilightwatcher.items import Manga, Character, Chapter, HistoryNote
+from anilightwatcher.utils import Database, get_manga_preview, get_status, lock_ui, with_lock_thread, \
     TextFormatter, get_catalog
 from const.colors import ItemsColors
 from const.lists import lib_lists_en, lib_lists_ru, LibList

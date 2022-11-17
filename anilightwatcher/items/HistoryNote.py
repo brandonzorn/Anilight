@@ -1,4 +1,4 @@
-from anilight.items import Chapter, Manga
+from anilightwatcher.items import Chapter, Manga
 
 
 class HistoryNote:

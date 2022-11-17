@@ -1,5 +1,5 @@
-from anilight.items import Genre
-from anilight.items.BaseItem import BaseItem
+from anilightwatcher.items import Genre
+from anilightwatcher.items.BaseItem import BaseItem
 
 
 class Manga(BaseItem):

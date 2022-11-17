@@ -1,10 +1,10 @@
 from PySide6.QtCore import QEvent
 from PySide6.QtWidgets import QListWidgetItem
 
-from anilight.contexts import HistoryNoteMenu
-from anilight.items import HistoryNote
-from anilight.utils import Database
-from anilight.widgets.BaseWidget import BaseWidget
+from anilightwatcher.contexts import HistoryNoteMenu
+from anilightwatcher.items import HistoryNote
+from anilightwatcher.utils import Database
+from anilightwatcher.widgets.BaseWidget import BaseWidget
 from const.colors import ItemsColors
 from data.ui.history import Ui_Form
 

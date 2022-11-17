@@ -1,4 +1,4 @@
-from anilight.parsers import ShikimoriLib, ShikimoriBase, ShikimoriAnime
+from anilightwatcher.parsers import ShikimoriLib, ShikimoriBase, ShikimoriAnime
 
 CATALOGS = {0: ShikimoriBase}
 USER_CATALOGS = [ShikimoriAnime]

@@ -1,11 +1,11 @@
 from threading import Thread, Lock
 
 from PySide6.QtWidgets import QListWidgetItem
-from anilight.dialogs import FormAuth
-from anilight.items import Manga, RequestForm, User
-from anilight.parsers import ShikimoriLib
-from anilight.utils import Database, lock_ui, with_lock_thread
-from anilight.widgets.BaseWidget import BaseWidget
+from anilightwatcher.dialogs import FormAuth
+from anilightwatcher.items import Manga, RequestForm, User
+from anilightwatcher.parsers import ShikimoriLib
+from anilightwatcher.utils import Database, lock_ui, with_lock_thread
+from anilightwatcher.widgets.BaseWidget import BaseWidget
 
 from const.lists import LibList
 from data.ui.shikimori import Ui_Form

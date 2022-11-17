@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QListWidgetItem
-from anilight.items import Manga, RequestForm
-from anilight.parsers import LocalLib
-from anilight.widgets.BaseWidget import BaseWidget
+from anilightwatcher.items import Manga, RequestForm
+from anilightwatcher.parsers import LocalLib
+from anilightwatcher.widgets.BaseWidget import BaseWidget
 
 from const.lists import LibList
 from data.ui.library import Ui_Form

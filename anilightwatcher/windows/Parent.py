@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMainWindow
 
-from anilight.widgets import FormShikimori, FormLibrary, FormFacial, FormHistory, FormInfo
+from anilightwatcher.widgets import FormShikimori, FormLibrary, FormFacial, FormHistory, FormInfo
 from data.ui.mainWindow import Ui_MainWindow
 
 

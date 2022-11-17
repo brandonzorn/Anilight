@@ -2,10 +2,10 @@ from threading import Thread, Lock
 
 from PySide6.QtWidgets import QListWidgetItem, QCheckBox, QRadioButton
 
-from anilight.dialogs import FormGenres
-from anilight.items import RequestForm
-from anilight.utils import Database, USER_CATALOGS, lock_ui, with_lock_thread
-from anilight.widgets.BaseWidget import BaseWidget
+from anilightwatcher.dialogs import FormGenres
+from anilightwatcher.items import RequestForm
+from anilightwatcher.utils import Database, USER_CATALOGS, lock_ui, with_lock_thread
+from anilightwatcher.widgets.BaseWidget import BaseWidget
 from const.colors import ItemsColors
 from data.ui.facial import Ui_Form
 

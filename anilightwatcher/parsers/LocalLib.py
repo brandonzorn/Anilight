@@ -1,5 +1,5 @@
-from anilight.items import RequestForm
-from anilight.utils.database import Database
+from anilightwatcher.items import RequestForm
+from anilightwatcher.utils.database import Database
 
 
 class LocalLib:

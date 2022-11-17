@@ -1,5 +1,5 @@
-from anilight.items import Genre, Kind
-from anilight.items.Order import Order
+from anilightwatcher.items import Genre, Kind
+from anilightwatcher.items.Order import Order
 
 from const.lists import LibList
 

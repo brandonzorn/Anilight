@@ -2,9 +2,9 @@ from threading import Thread
 
 from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QDialog
-from anilight.utils import TextFormatter
-from anilight.utils.catalog_manager import get_catalog
-from anilight.utils.file_manager import get_character_preview
+from anilightwatcher.utils import TextFormatter
+from anilightwatcher.utils.catalog_manager import get_catalog
+from anilightwatcher.utils.file_manager import get_character_preview
 
 from data.ui.character import Ui_Dialog
 
