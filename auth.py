@@ -14,7 +14,7 @@ class Auth:
         self.extra = {'client_id': self.client_id, 'client_secret': self.client_secret}
         self.token_saver = token_saver
         self.tokens = token_loader()
-        self.headers = {'User-Agent': 'Shikimori', 'Authorization': f'Bearer {self.tokens.get("access_token")}'}
+        self.headers = {'User-Agent': 'Anilight', 'Authorization': f'Bearer {self.tokens.get("access_token")}'}
         self.client = self.get_client(scope, self.redirect_uri, token)
 
     def get_client(self, scope, redirect_uri, token):
@@ -40,7 +40,7 @@ class Auth:
         if not token_loader():
             return None
         self.client.headers.clear()
-        self.client.headers.update({'User-Agent': 'Shikimori'})
+        self.client.headers.update({'User-Agent': 'Anilight'})
         self.client.refresh_token(URL_TOKEN, refresh_token=token_loader().get('refresh_token'))
         self.token_saver(self.token)
         self.client.headers.update({'Authorization': f'Bearer {token_loader().get("access_token")}'})

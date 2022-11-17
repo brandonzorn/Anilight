@@ -187,7 +187,7 @@ class Auth:
         self.redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
         self.extra = {'client_id': self.client_id, 'client_secret': self.client_secret}
         self.tokens = TokenManager.load_token(ShikimoriLib.catalog_name)
-        self.headers = {'User-Agent': 'Shikimori', 'Authorization': f'Bearer {self.tokens.get("access_token")}'}
+        self.headers = {'User-Agent': 'Anilight', 'Authorization': f'Bearer {self.tokens.get("access_token")}'}
         self.client = self.get_client(scope, self.redirect_uri, token)
         self.refresh_token()
         self.is_authorized = False
