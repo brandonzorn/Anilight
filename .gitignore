@@ -2,3 +2,4 @@
 /.idea
 /Anilight
 keys.py
+*.pyc
