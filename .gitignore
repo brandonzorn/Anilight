@@ -3,3 +3,4 @@
 /Anilight
 keys.py
 *.pyc
+*__pycache__
